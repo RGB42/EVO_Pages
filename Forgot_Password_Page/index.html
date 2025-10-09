@@ -106,10 +106,7 @@
           access_token,
           refresh_token: access_token,
         }); */
-        const { error: sessionError } = await _supabase.auth.verifyOtp({
-          type,
-          token: token_hash
-        });
+        const { error: sessionError } = await _supabase.auth.exchangeCodeForSession(target);
         console.log(sessionError);
         console.log(access_token, type);
         if (sessionError) {
