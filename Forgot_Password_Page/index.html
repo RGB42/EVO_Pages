@@ -69,7 +69,7 @@
       const SUPABASE_URL = "https://dufohhinajzkmrhrjgwj.supabase.co";
       const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1Zm9oaGluYWp6a21yaHJqZ3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg0MTQ2OTAsImV4cCI6MjA2Mzk5MDY5MH0.XpshvSSz93wuqFTKESaNvh_6Fdmcz4QxnW4fNfkcTnQ";
 
-      const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
       const url = new URL(window.location.href);
       const access_token = url.hash.match(/access_token=([^&]+)/)?.[1];
@@ -97,7 +97,7 @@
         }
 
         // Setze Session mit Token
-        const { data, error: sessionError } = await supabase.auth.setSession({
+        const { data, error: sessionError } = await _supabase.auth.setSession({
           access_token,
           refresh_token: access_token,
         });
@@ -109,7 +109,7 @@
         }
 
         // Passwort ändern
-        const { error } = await supabase.auth.updateUser({ password });
+        const { error } = await _supabase.auth.updateUser({ password });
 
         if (error) {
           msg.textContent = "Fehler beim Ändern des Passworts.";
