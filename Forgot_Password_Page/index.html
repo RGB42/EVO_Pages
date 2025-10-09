@@ -74,8 +74,8 @@
       
       const target = decodeURIComponent(new URL(window.location.href).searchParams.get('target'));
       const url = new URL(target);
-      const access_token = url.hash.match(/access_token=([^&]+)/)?.[1];
-      const type = url.hash.match(/type=([^&]+)/)?.[1];
+      const access_token = url.searchParams.get('token');
+      const type = url.searchParams.get('type');
       
 
 
