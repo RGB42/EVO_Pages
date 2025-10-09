@@ -71,18 +71,18 @@
 
       const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      
-      const target = decodeURIComponent(new URL(window.location.href).searchParams.get('target'));
-      if (target) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('redirect_to', new URL(window.location.href).origin);
-        window.location.href = url.href;
-      }
-      const token_hash = decodeURIComponent(new URL(window.location.href).searchParams.get('token_hash'));
+
       const url = new URL(window.location.href);
+      const target = decodeURIComponent(url.searchParams.get('target'));
       const access_token = url.hash.match(/access_token=([^&]+)/)?.[1];
       const type = url.hash.match(/type=([^&]+)/)?.[1];
       const refresh_token = url.hash.match(/refresh_token=([^&]+)/)?.[1];
+      
+      if (target && !access_token && !refresh_token) {
+        url.searchParams.set('redirect_to', new URL(window.location.href).origin);
+        window.location.href = url.href;
+      }
+      
       
 
       
