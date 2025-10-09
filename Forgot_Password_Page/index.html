@@ -101,7 +101,8 @@
           access_token,
           refresh_token: access_token,
         });
-
+        console.log(sessionError);
+        console.log(access_token, type);
         if (sessionError) {
           msg.textContent = "Sitzung konnte nicht hergestellt werden.";
           msg.classList.add("error");
