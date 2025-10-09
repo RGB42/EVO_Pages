@@ -101,9 +101,13 @@
         }
 
         // Setze Session mit Token
-        const { data, error: sessionError } = await _supabase.auth.setSession({
+        /*const { data, error: sessionError } = await _supabase.auth.setSession({
           access_token,
           refresh_token: access_token,
+        }); */
+        const { error: sessionError } = await _supabase.auth.verifyOtp({
+          type,
+          token
         });
         console.log(sessionError);
         console.log(access_token, type);
