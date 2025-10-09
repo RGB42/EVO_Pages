@@ -72,8 +72,8 @@
       const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
       const url = new URL(window.location.href);
-      const access_token = url.hash.match(/access_token=([^&]+)/)?.[1];
-      const type = url.hash.match(/type=([^&]+)/)?.[1];
+      const access_token = url.searchParams.get('access_token');
+      const type = url.searchParams.get('type');
 
       const msg = document.getElementById("message");
       const btn = document.getElementById("resetBtn");
