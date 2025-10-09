@@ -107,7 +107,7 @@
         }); */
         const { error: sessionError } = await _supabase.auth.verifyOtp({
           type,
-          token
+          token: access_token
         });
         console.log(sessionError);
         console.log(access_token, type);
