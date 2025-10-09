@@ -75,7 +75,7 @@
       const url = new URL(window.location.href);
       const target = decodeURIComponent(url.searchParams.get('target'));
       const access_token = url.hash.match(/access_token=([^&]+)/)?.[1];
-      const type = url.hash.match(/type=([^&]+)/)?.[1];
+      const type = url.hash.match(/(?<!_)type=([^&]+)/)?.[1];
       const refresh_token = url.hash.match(/refresh_token=([^&]+)/)?.[1];
 
       console.log(url);
