@@ -73,6 +73,7 @@
 
       
       const target = decodeURIComponent(new URL(window.location.href).searchParams.get('target'));
+      const token_hash = decodeURIComponent(new URL(window.location.href).searchParams.get('token_hash'));
       const url = new URL(target);
       const access_token = url.searchParams.get('token');
       const type = url.searchParams.get('type');
@@ -107,7 +108,7 @@
         }); */
         const { error: sessionError } = await _supabase.auth.verifyOtp({
           type,
-          token: access_token
+          token: token_hash
         });
         console.log(sessionError);
         console.log(access_token, type);
