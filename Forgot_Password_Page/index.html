@@ -2,13 +2,13 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <title>Passwort zurücksetzen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passwort zurücksetzen</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
       body {
         font-family: system-ui, sans-serif;
-        background-color: #f9fafb;
-        color: #111;
+        background: #f6f8fa;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -18,95 +18,110 @@
         background: white;
         padding: 2rem;
         border-radius: 1rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
         width: 100%;
-        max-width: 400px;
+        max-width: 360px;
+      }
+      h1 {
         text-align: center;
+        font-size: 1.3rem;
       }
       input {
         width: 100%;
-        padding: 10px;
+        padding: 0.7rem;
         margin-top: 1rem;
         border: 1px solid #ccc;
-        border-radius: 6px;
+        border-radius: 0.5rem;
       }
       button {
-        margin-top: 1rem;
+        margin-top: 1.2rem;
         width: 100%;
-        background-color: #3b82f6;
+        padding: 0.7rem;
+        background: #3b82f6;
         color: white;
         border: none;
-        padding: 10px;
-        border-radius: 6px;
+        border-radius: 0.5rem;
         cursor: pointer;
-        font-weight: bold;
       }
       button:hover {
-        background-color: #2563eb;
+        background: #2563eb;
       }
-      .msg {
+      .message {
+        text-align: center;
         margin-top: 1rem;
         color: #16a34a;
       }
-      .err {
-        margin-top: 1rem;
+      .error {
         color: #dc2626;
       }
     </style>
   </head>
   <body>
     <div class="card">
-      <h1>Hallöchen :)</h1>
-      <h2>Passwort zurücksetzen</h2>
-      <p>Bitte gib dein neues Passwort ein.</p>
-      <input
-        type="password"
-        id="password"
-        placeholder="Neues Passwort"
-        autocomplete="new-password"
-      />
-      <button id="submit">Passwort speichern</button>
-      <p id="message"></p>
+      <h1>Passwort zurücksetzen</h1>
+      <input type="password" id="password" placeholder="Neues Passwort" />
+      <button id="resetBtn">Passwort speichern</button>
+      <div id="message" class="message"></div>
     </div>
 
-    <script type="module">
-      import { createClient } from "https://esm.sh/@supabase/supabase-js";
-
+    <script>
+      // 🔧 Supabase Config
       const SUPABASE_URL = "https://dufohhinajzkmrhrjgwj.supabase.co";
       const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1Zm9oaGluYWp6a21yaHJqZ3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg0MTQ2OTAsImV4cCI6MjA2Mzk5MDY5MH0.XpshvSSz93wuqFTKESaNvh_6Fdmcz4QxnW4fNfkcTnQ";
 
-      const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+      const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      const btn = document.getElementById("submit");
-      const pwInput = document.getElementById("password");
+      const url = new URL(window.location.href);
+      const access_token = url.hash.match(/access_token=([^&]+)/)?.[1];
+      const type = url.hash.match(/type=([^&]+)/)?.[1];
+
       const msg = document.getElementById("message");
+      const btn = document.getElementById("resetBtn");
 
-      // Lausche auf Passwort-Wiederherstellungs-Event
-      supabase.auth.onAuthStateChange(async (event) => {
-        if (event === "PASSWORD_RECOVERY") {
-          console.log("Recovery-Flow erkannt");
-        }
-      });
+      async function resetPassword() {
+        const password = document.getElementById("password").value;
+        msg.textContent = "";
+        msg.classList.remove("error");
 
-      btn.addEventListener("click", async () => {
-        const password = pwInput.value.trim();
-        if (password.length < 6) {
-          msg.textContent = "Passwort muss mindestens 6 Zeichen haben.";
-          msg.className = "err";
+        if (!password || password.length < 6) {
+          msg.textContent = "Das Passwort muss mindestens 6 Zeichen lang sein.";
+          msg.classList.add("error");
           return;
         }
 
-        const { data, error } = await supabase.auth.updateUser({ password });
+        if (!access_token || type !== "recovery") {
+          msg.textContent =
+            "Ungültiger oder abgelaufener Link. Bitte fordere einen neuen an.";
+          msg.classList.add("error");
+          return;
+        }
+
+        // Setze Session mit Token
+        const { data, error: sessionError } = await supabase.auth.setSession({
+          access_token,
+          refresh_token: access_token,
+        });
+
+        if (sessionError) {
+          msg.textContent = "Sitzung konnte nicht hergestellt werden.";
+          msg.classList.add("error");
+          return;
+        }
+
+        // Passwort ändern
+        const { error } = await supabase.auth.updateUser({ password });
 
         if (error) {
-          msg.textContent = "❌ " + error.message;
-          msg.className = "err";
+          msg.textContent = "Fehler beim Ändern des Passworts.";
+          msg.classList.add("error");
         } else {
           msg.textContent = "✅ Passwort erfolgreich geändert!";
-          msg.className = "msg";
-          pwInput.value = "";
+          btn.disabled = true;
         }
-      });
+      }
+
+      btn.addEventListener("click", resetPassword);
     </script>
   </body>
 </html>
+
