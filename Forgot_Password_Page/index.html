@@ -77,6 +77,7 @@
       const access_token = url.hash.match(/access_token=([^&]+)/)?.[1];
       const type = url.hash.match(/(?<!_)type=([^&]+)/)?.[1];
       const refresh_token = url.hash.match(/refresh_token=([^&]+)/)?.[1];
+      const code = url.searchParams.get('code');
 
       console.log(url);
       console.log(target);
@@ -114,10 +115,17 @@
         }
 
         // Setze Session mit Token
-        const { data, error: sessionError } = await _supabase.auth.setSession({
+        let authMethod = _supabase.auth.setSession;
+        let authOption = {
           access_token,
           refresh_token,
-        });
+        };
+        if (code) {
+          authMethod = _supabase.auth.exchangeCodeForSession;
+          authOption = { code };
+        }
+        const { data, error: sessionError } = await authMethod(authOption);
+          
         console.log(sessionError);
         console.log(access_token, type);
         if (sessionError) {
