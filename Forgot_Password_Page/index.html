@@ -88,7 +88,7 @@
     const refresh_token = url.hash.match(/refresh_token=([^&]+)/)?.[1];
     const code = url.searchParams.get('code');
     if (code) {
-      authMethod = _supabase.auth.exchangeCodeForSession;
+      authMethod = _supabase.auth.exchangeCodeForSession(code);
       console.log(authMethod);
     }
 
