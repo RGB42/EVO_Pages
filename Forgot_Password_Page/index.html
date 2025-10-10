@@ -78,7 +78,14 @@
     const SUPABASE_URL = "https://dufohhinajzkmrhrjgwj.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1Zm9oaGluYWp6a21yaHJqZ3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg0MTQ2OTAsImV4cCI6MjA2Mzk5MDY5MH0.XpshvSSz93wuqFTKESaNvh_6Fdmcz4QxnW4fNfkcTnQ";
 
-    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        flowType: 'pkce',
+        detectSessionInUrl: false, // optional, wenn du manuell exchangeCodeForSession nutzt
+        persistSession: true,
+        autoRefreshToken: true,
+      },
+    });
 
 
     const url = new URL(window.location.href);
@@ -88,7 +95,7 @@
     const refresh_token = url.hash.match(/refresh_token=([^&]+)/)?.[1];
     const code = url.searchParams.get('code');
     if (code) {
-      authMethod = _supabase.auth.exchangeCodeForSession(code);
+      authMethod = await _supabase.auth.exchangeCodeForSession(code);
       console.log(authMethod);
     }
 
