@@ -83,7 +83,7 @@
       console.log(target);
       console.log(access_token, refresh_token, type);
       
-      if (target && !access_token && !refresh_token) {
+      if (target && !access_token && !refresh_token && !code) {
         const verifyUrl = new URL(target);
         verifyUrl.searchParams.set('redirect_to', new URL(window.location.href).origin);
         window.location.href = verifyUrl.href;
