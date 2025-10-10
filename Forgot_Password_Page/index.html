@@ -95,8 +95,9 @@
     const refresh_token = url.hash.match(/refresh_token=([^&]+)/)?.[1];
     const code = url.searchParams.get('code');
     if (code) {
-      var authMethod = _supabase.auth.exchangeCodeForSession(code);
-      console.log(authMethod);
+      const { data, error } = await _supabase.auth.exchangeCodeForSession(code);
+      if (error) console.error(error);
+      else console.log("Session via PKCE erfolgreich:", data);
     }
 
     console.log(url);
