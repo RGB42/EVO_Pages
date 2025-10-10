@@ -127,6 +127,8 @@
         return;
       }
 
+      const authMethod = _supabase.auth;
+
       if (!authMethod) { // skip if already authorized via pkce -> ?code=...
 
         if (!access_token || type !== "recovery") {
