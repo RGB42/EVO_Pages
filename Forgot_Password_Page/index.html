@@ -73,7 +73,7 @@
     <div id="message" class="message"></div>
   </div>
 
-  <script>
+  <script type="module">
     // 🔧 Supabase Config
     const SUPABASE_URL = "https://dufohhinajzkmrhrjgwj.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1Zm9oaGluYWp6a21yaHJqZ3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg0MTQ2OTAsImV4cCI6MjA2Mzk5MDY5MH0.XpshvSSz93wuqFTKESaNvh_6Fdmcz4QxnW4fNfkcTnQ";
@@ -109,7 +109,7 @@
       verifyUrl.searchParams.set('redirect_to', new URL(window.location.href).origin);
       window.location.href = verifyUrl.href;
     }
-    
+
     const msg = document.getElementById("message");
     const btn = document.getElementById("resetBtn");
 
