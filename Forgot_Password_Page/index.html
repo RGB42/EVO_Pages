@@ -80,8 +80,8 @@
 
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: {
-        flowType: 'pkce',
-        detectSessionInUrl: true, // optional, wenn du manuell exchangeCodeForSession nutzt
+        flowType: 'implicit',  // ← wieder auf implicit setzen
+        detectSessionInUrl: true,
         persistSession: true,
         autoRefreshToken: true,
       },
