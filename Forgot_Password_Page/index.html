@@ -109,11 +109,7 @@
       verifyUrl.searchParams.set('redirect_to', new URL(window.location.href).origin);
       window.location.href = verifyUrl.href;
     }
-
-
-
-
-
+    
     const msg = document.getElementById("message");
     const btn = document.getElementById("resetBtn");
 
@@ -128,27 +124,24 @@
         return;
       }
 
-      if (!authMethod) { // skip if already authorized via pkce -> ?code=...
+      if (!access_token || type !== "recovery") {
+        msg.textContent =
+          "Ungültiger oder abgelaufener Link. Bitte fordere einen neuen an.";
+        msg.classList.add("error");
+        return;
+      }
 
-        if (!access_token || type !== "recovery") {
-          msg.textContent =
-            "Ungültiger oder abgelaufener Link. Bitte fordere einen neuen an.";
-          msg.classList.add("error");
-          return;
-        }
+      const { data, error: sessionError } = await _supabase.auth.setSession({
+        access_token,
+        refresh_token,
+      });
 
-        const { data, error: sessionError } = await _supabase.auth.setSession({
-          access_token,
-          refresh_token,
-        });
-
-        console.log(sessionError);
-        console.log(access_token, type);
-        if (sessionError) {
-          msg.textContent = "Sitzung konnte nicht hergestellt werden.";
-          msg.classList.add("error");
-          return;
-        }
+      console.log(sessionError);
+      console.log(access_token, type);
+      if (sessionError) {
+        msg.textContent = "Sitzung konnte nicht hergestellt werden.";
+        msg.classList.add("error");
+        return;
       }
 
       // Passwort ändern
