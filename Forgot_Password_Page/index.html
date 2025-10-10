@@ -136,13 +136,10 @@
           return;
         }
 
-        // Setze Session mit Token
-        let authMethod = _supabase.auth.setSession;
-        let authOption = {
+        const { data, error: sessionError } = await _supabase.auth.setSession({
           access_token,
           refresh_token,
-        };
-        const { data, error: sessionError } = await authMethod(authOption);
+        });
 
         console.log(sessionError);
         console.log(access_token, type);
