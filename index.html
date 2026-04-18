@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umadum — Entdecke Events in deiner Nähe</title>
+  <meta name="description" content="Umadum zeigt dir alle Events rund um dich herum. Filtere nach Kategorien, Entfernung und Zeitraum — nie wieder FOMO.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/app_icon.png">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ======== NAVBAR ======== -->
+<nav class="navbar" role="navigation" aria-label="Hauptnavigation">
+  <div class="container">
+    <a href="index.html" class="navbar-brand">
+      <img src="images/app_icon.png" alt="Umadum Logo" width="40" height="40">
+      Umadum
+    </a>
+
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#download">Download</a></li>
+      <li><a href="hilfe.html">Hilfe & Kontakt</a></li>
+      <li><a href="#" onclick="goToApp(event)" class="btn btn-primary" style="padding:10px 24px;">App öffnen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ======== HERO ======== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>🎉</span> No more FOMO
+      </div>
+
+      <h1>Entdecke Events rund&nbsp;um&nbsp;dich</h1>
+      <p>Umadum zeigt dir Konzerte, Festivals, Ausstellungen und mehr in deiner Nähe — gefiltert nach deinen Interessen, in Echtzeit.</p>
+
+      <form class="location-search" onsubmit="goToApp(event)">
+        <input type="text" id="location-input" placeholder="Ort eingeben, z.&thinsp;B. Innsbruck…" autocomplete="off" aria-label="Ort eingeben">
+        <button type="submit" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+          Entdecken
+        </button>
+      </form>
+    </div>
+
+    <div class="hero-visual">
+      <!-- Floating badges -->
+      <div class="hero-float-badge top-right">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
+        248 Events
+      </div>
+      <div class="hero-float-badge bottom-left">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+        Dieses Wochenende
+      </div>
+
+      <!-- Phone mockup -->
+      <div class="hero-phone">
+        <div class="hero-phone-inner">
+          <div class="hero-phone-statusbar"><span>Umadum</span></div>
+          <div class="hero-phone-content">
+            <div class="mock-card">
+              <div class="mock-card-header">
+                <div class="mock-dot green"></div>
+                <div class="mock-line short"></div>
+              </div>
+              <div class="mock-line medium" style="margin-bottom:6px"></div>
+              <div class="mock-line short accent"></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card-header">
+                <div class="mock-dot mint"></div>
+                <div class="mock-line medium"></div>
+              </div>
+              <div class="mock-line short" style="margin-bottom:6px"></div>
+              <div class="mock-line medium accent"></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card-header">
+                <div class="mock-dot teal"></div>
+                <div class="mock-line short"></div>
+              </div>
+              <div class="mock-line medium" style="margin-bottom:6px"></div>
+              <div class="mock-line short accent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FEATURES ======== -->
+<section id="features" style="background:var(--bg-light)">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2>Alles, was du brauchst</h2>
+      <p class="lead">Umadum bringt dir die besten Events deiner Umgebung direkt aufs Handy — smart gefiltert und übersichtlich organisiert.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
+        </div>
+        <h3>Kartenansicht</h3>
+        <p>Sieh alle Events auf einer interaktiven Karte. Zoome, verschiebe und entdecke was rund um dich passiert.</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"/></svg>
+        </div>
+        <h3>Smarte Filter</h3>
+        <p>Filtere nach Kategorie, Entfernung, Zeitraum und mehr. Du siehst nur, was dich wirklich interessiert.</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+        </div>
+        <h3>Kalender</h3>
+        <p>Monatsansicht mit farbcodierten Events. Plane voraus und verpasse nichts mehr in deiner Umgebung.</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+        </div>
+        <h3>Events erstellen</h3>
+        <p>Erstelle eigene Events und teile sie mit der Community. Einfach, schnell und direkt auf der Karte sichtbar.</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"/></svg>
+        </div>
+        <h3>Benachrichtigungen</h3>
+        <p>Werde informiert, wenn neue Events in deiner Nähe stattfinden — genau nach deinen Vorlieben.</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+        </div>
+        <h3>Web & Android</h3>
+        <p>Nutze Umadum im Browser oder als Android App. Deine Events sind überall dabei, dein Account synchronisiert.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== DOWNLOAD / TESTER ======== -->
+<section id="download">
+  <div class="container">
+    <div class="cta-section text-center fade-in">
+      <h2>Hol dir die Umadum App</h2>
+      <p class="lead">Die App befindet sich aktuell in der geschlossenen Testphase für Android. Werde Tester und sei unter den Ersten, die Umadum ausprobieren!</p>
+    </div>
+
+    <div class="tester-box fade-in" style="margin-top:-20px; position:relative; z-index:2;">
+      <h3>🧪 Tester werden</h3>
+      <p>Gib deine Google Play Store E-Mail-Adresse an, um dich als Tester zu bewerben. Wir schalten dich so schnell wie möglich frei.</p>
+
+      <form id="tester-form" class="tester-form">
+        <input type="email" name="tester-email" placeholder="deine@email.com" required aria-label="Play Store E-Mail-Adresse">
+        <button type="submit" class="btn btn-primary">Als Tester bewerben</button>
+      </form>
+      <p class="tester-note">Deine E-Mail wird ausschließlich für die Tester-Freigabe verwendet.</p>
+    </div>
+
+    <div class="text-center fade-in" style="margin-top:48px">
+      <p style="margin-bottom:20px">Oder nutze Umadum direkt im Browser:</p>
+      <div class="cta-buttons">
+        <a href="#" onclick="goToApp(event)" class="btn btn-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:20px;height:20px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+          Web-App öffnen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FOOTER ======== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="images/app_icon.png" alt="Umadum" width="36" height="36">
+          <span>Umadum</span>
+        </div>
+        <p>Entdecke Events in deiner Nähe — Konzerte, Festivals, Ausstellungen und vieles mehr. Nie wieder FOMO.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#download">Download</a></li>
+          <li><a href="hilfe.html">Hilfe & Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Rechtliches</h4>
+        <ul class="footer-links">
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Umadum. Alle Rechte vorbehalten.</span>
+      <a href="mailto:zutoruffy@gmail.com">zutoruffy@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
