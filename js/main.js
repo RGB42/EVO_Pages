@@ -56,7 +56,7 @@ function goToApp(event) {
   const location = input ? input.value.trim() : '';
 
   // Flutter Web App unter /app/ (gleiche Domain)
-  const appBase = '/app/';
+  const appBase = '/index.html';
 
   if (location) {
     window.location.href = appBase + '?location=' + encodeURIComponent(location);
