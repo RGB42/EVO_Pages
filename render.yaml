@@ -14,6 +14,10 @@ services:
     staticPublishPath: .
     pullRequestPreviewsEnabled: false
     routes:
+      # Flutter App Canonical Entry
+      - type: rewrite
+        source: /app
+        destination: /app/index.html
       # Flutter App — SPA-Fallback (alles unter /app/ → /app/index.html)
       - type: rewrite
         source: /app/*
